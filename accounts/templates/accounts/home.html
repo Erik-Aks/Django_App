@@ -1,0 +1,28 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Strona główna{% endblock %}
+
+{% block content %}
+<div class="dashboard-section">
+    <h2 class="welcome-title">Witaj, {{ user.first_name }}!</h2>
+
+    <div class="user-info">
+        <div class="info-item">
+            <span class="info-label">Login:</span>
+            <span class="info-value">{{ user.username }}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Email:</span>
+            <span class="info-value">{{ user.email }}</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Ostatnie logowanie:</span>
+            <span class="info-value">{{ user.last_login|date:"d.m.Y H:i" }}</span>
+        </div>
+    </div>
+
+    <div class="actions">
+        <a href="{% url 'accounts:logout' %}" class="btn btn-secondary">Wyloguj się</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Wybór logowania{% endblock %}
+
+{% block content %}
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Sekcja logowania -->
+<h2 class="section-title">Mam już konto SystemApp</h2>
+<form method="post" action="{% url 'accounts:auth_choice' %}">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="login">
+    <div class="input-group">
+        <label class="input-label">Nazwa użytkownika lub adres e-mail</label>
+        <input type="text" name="username" class="input-field" required />
+    </div>
+    <div class="input-group">
+        <label class="input-label">Hasło</label>
+        <input type="password" name="password" class="input-field" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Zaloguj się</button>
+</form>
+
+<div class="divider">
+    <span class="divider-text">lub</span>
+</div>
+
+<!-- Sekcja rejestracji -->
+<h2 class="section-title">Nie jestem jeszcze klientem SystemApp</h2>
+<form method="post" action="{% url 'accounts:register_initial' %}">
+    {% csrf_token %}
+    <div class="input-group">
+        <label class="input-label">Imię</label>
+        <input type="text" name="first_name" class="input-field" required />
+    </div>
+    <div class="input-group">
+        <label class="input-label">Nazwisko</label>
+        <input type="text" name="last_name" class="input-field" required />
+    </div>
+    <div class="input-group">
+        <label class="input-label">E-mail</label>
+        <input type="email" name="email" class="input-field" required />
+    </div>
+    <div class="input-group">
+        <label class="input-label">Hasło</label>
+        <input type="password" name="password1" class="input-field" required />
+    </div>
+    <div class="input-group">
+        <label class="input-label">Powtórz hasło</label>
+        <input type="password" name="password2" class="input-field" required />
+    </div>
+    <div class="checkbox-group">
+        <input type="checkbox" id="terms" required />
+        <label for="terms" class="checkbox-label">Akceptuję Warunki Świadczenia Usług SystemApp</label>
+    </div>
+    <div class="checkbox-group">
+        <input type="checkbox" id="newsletter" />
+        <label for="newsletter" class="checkbox-label">Wyrażam zgodę na otrzymywanie e-mail od SystemApp</label>
+    </div>
+    <button type="submit" class="btn btn-secondary">Załóż konto</button>
+</form>
+
+<div class="footer-link">
+    <a href="#">Nie pamiętasz hasła?</a>
+</div>
+{% endblock %}

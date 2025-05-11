@@ -1,0 +1,40 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Pytania bezpieczeństwa{% endblock %}
+
+{% block content %}
+<div class="security-section">
+    <h2 class="section-title">Weryfikacja bezpieczeństwa</h2>
+    <p class="info-text">Proszę odpowiedzieć na 3 pytania zabezpieczające</p>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="post" action="{% url 'accounts:security_questions' %}">
+        {% csrf_token %}
+        <div class="input-group">
+            <label class="input-label">1. Imię pierwszego zwierzaka</label>
+            <input type="text" name="security_answer1" class="input-field" required>
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">2. Ulubione jedzenie</label>
+            <input type="text" name="security_answer2" class="input-field" required>
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">3. Miejsce urodzenia</label>
+            <input type="text" name="security_answer3" class="input-field" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Zakończ rejestrację</button>
+    </form>
+</div>
+{% endblock %}

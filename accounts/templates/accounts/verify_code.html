@@ -1,0 +1,43 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Weryfikacja kodu{% endblock %}
+
+{% block content %}
+<h2 class="section-title">Weryfikacja dwuetapowa</h2>
+<p>Wprowadź 4-cyfrowy kod wysłany na Twój adres e-mail</p>
+
+{% if messages %}
+<div class="messages">
+    {% for message in messages %}
+    <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    <div class="input-group">
+        <label class="input-label">Kod weryfikacyjny</label>
+        <input type="text" name="code" class="input-field"
+               placeholder="1234" maxlength="4" pattern="\d{4}" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Zweryfikuj</button>
+</form>
+
+<style>
+    .messages {
+        margin-bottom: 20px;
+    }
+    .alert {
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 15px;
+    }
+    .alert.error {
+        background-color: #ffebee;
+        color: #c62828;
+    }
+</style>
+{% endblock %}
